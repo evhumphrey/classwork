@@ -1,5 +1,5 @@
-include 'rspec'
-include 'stock_picker'
+require 'rspec'
+require 'stock_picker'
 
 describe '#stock_picker' do
 end
