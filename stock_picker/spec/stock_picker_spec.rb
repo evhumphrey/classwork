@@ -3,14 +3,14 @@ require 'stock_picker'
 
 describe '#stock_picker' do
   # mock object for wherever we put #stock_picker
-  subject(:stock_prices) { [1.34, 2.90, 4.80, 3.20, 5.15, 1.00] }
+  subject(:stock_prices) { [1.34, 7.90, 4.80, 3.20, 5.15, 1.00] }
 
     it 'returns a pair of integers' do
-      expect(stock_picker(stock_prices)).to eq([2, 5])
+      expect(stock_picker(stock_prices)).to eq([1, 5])
     end
 
     it 'returns nil if no profitable day pair exists' do
-      expect(stock_picker([5.00, 4.00])).to be_falsey
+      expect(stock_picker([4.00, 5.00])).to be_falsey
     end
 
     context 'raises an error' do
