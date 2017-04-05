@@ -12,6 +12,9 @@ class TowersOfHanoi
 
   def move(start_tower, end_tower)
     # errors
+    if !start_tower.between?(0, 2) || !end_tower.between?(0, 2)
+      raise "Invalid move: please enter tower numbers between 0 and 2"
+    end
     if start_tower == end_tower
       raise "Invalid move: can't move on same tower"
     end
@@ -28,9 +31,32 @@ class TowersOfHanoi
   end
 
   def won?
-    true if @towers[1].length == 3 || @towers[2].length == 3
+    return true if @towers[1].length == 3 || @towers[2].length == 3
     false
   end
+
+  def play
+
+    until won?
+      render
+      begin
+        puts "Enter tower to move from:"
+        print "> "
+        start_tower = gets.chomp.to_i
+        puts "Enter tower to move to:"
+        print "> "
+        end_tower = gets.chomp.to_i
+        move(start_tower, end_tower)
+      rescue StandardError => e
+        render
+        puts "#{e}"
+        puts "Please try again."
+        retry
+      end
+    end
+    puts "Congrats! You win!"
+  end
+
 
   private
 
@@ -39,4 +65,27 @@ class TowersOfHanoi
     nil
   end
 
+  def render
+    system("clear")
+    puts "Towers of Hanoi"
+    2.downto(0).each do |disk_num|
+      0.upto(2).each do |tower_num|
+
+        if @towers[tower_num][disk_num]
+          print "  #{@towers[tower_num][disk_num]}  "
+        else # tower has no disk here
+          print "  |  "
+        end
+      end
+      puts
+    end
+    3.times do |tower_num|
+      print "  #{tower_num}  "
+    end
+    puts
+  end
+
 end
+
+game = TowersOfHanoi.new
+game.play
