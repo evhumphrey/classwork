@@ -6,7 +6,7 @@ describe TowersOfHanoi do
   let(:start_tower_state) { [[3, 2, 1], [0, 0, 0], [0, 0, 0]] }
   context '#initialize' do
     it 'sets towers' do
-      expect(game.towers).to_eq(start_tower_state)
+      expect(game.towers).to eq(start_tower_state)
     end
   end
 
