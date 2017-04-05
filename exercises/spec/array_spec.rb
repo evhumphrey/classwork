@@ -26,7 +26,7 @@ describe Array do
   end
 
   context '#two_sum' do
-    subject(:my_array) { [-1, -1, 0, 2, -2, 1] }
+    subject(:my_array) { [-1, 0, 2, -2, 1] }
     let(:result_array) { my_array.two_sum }
 
     context 'returns a new array' do
@@ -40,7 +40,7 @@ describe Array do
       end
 
       it 'returns an empty array when receiver is empty' do
-        expect([].to_sum).to be_empty
+        expect([].two_sum).to be_empty
       end
 
       it 'returns an empty array when receiver size is 1' do
@@ -53,7 +53,9 @@ describe Array do
       let(:in_order) { result_array.map(&:first) }
 
       it 'only has position pairs that sum to 0' do
-        sums = result_array.map { |pair| pair.first + pair.last }
+        sums = result_array.map do |pair|
+          my_array[pair.first] + my_array[pair.last]
+        end
         all_sums_zero = sums.all? { |sum| sum == 0 }
 
         expect(all_sums_zero).to be_truthy
