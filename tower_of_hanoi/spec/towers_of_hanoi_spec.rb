@@ -3,7 +3,7 @@ require 'towers_of_hanoi'
 
 describe TowersOfHanoi do
   subject(:game) { TowersOfHanoi.new }
-  let(:start_tower_state) { [[1, 2, 3], [0, 0, 0], [0, 0, 0]] }
+  let(:start_tower_state) { [[3, 2, 1], [0, 0, 0], [0, 0, 0]] }
   context '#initialize' do
     it 'sets towers' do
       expect(game.towers).to_eq(start_tower_state)
@@ -25,13 +25,13 @@ describe TowersOfHanoi do
 
     it 'moves a disk from one tower to another' do
       game.move(0, 1)
-      expect(game.towers).to_eq([0, 2, 3], [0, 0, 1], [0, 0, 0])
+      expect(game.towers).to_eq([3, 2, 0], [1, 0, 0], [0, 0, 0])
     end
   end
 
   context '#won?' do
-    let(:win_one) { [[0, 0, 0], [1, 2, 3], [0, 0, 0]] }
-    let(:win_two) { [[0, 0, 0], [0, 0, 0], [1, 2, 3]] }
+    let(:win_one) { [[0, 0, 0], [3, 2, 1], [0, 0, 0]] }
+    let(:win_two) { [[0, 0, 0], [0, 0, 0], [3, 2, 1]] }
 
     it 'returns true when second tower has complete stack of disks' do
       expect(game.towers == win_one).to eq(game.won?)
