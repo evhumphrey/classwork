@@ -26,4 +26,7 @@ class Array
     pairs
   end
 
+  def my_transpose
+  end
+
 end

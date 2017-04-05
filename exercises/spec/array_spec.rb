@@ -74,4 +74,22 @@ describe Array do
     end
   end
 
+  context '#my_transpose' do
+    subject(:my_matrix) { [[0, 1, 2], [3, 4, 5], [6, 7, 8]] }
+    subject(:result) { my_matrix.my_transpose }
+
+    it 'raises an error if receiver is a one-dimensional array' do
+      expect { [1, 2, 3].my_transpose }.to raise_error(TypeError)
+    end
+
+    it 'does not modify receiver' do
+      expect(result).not_to eql(my_matrix)
+    end
+
+    it 'correctly transposes receiver' do
+      expect(result).to eq(my_matrix.transpose)
+    end
+
+  end
+
 end
