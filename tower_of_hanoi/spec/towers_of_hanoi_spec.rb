@@ -14,6 +14,7 @@ describe TowersOfHanoi do
     let(:same_tower_error) { "Invalid move: can't move on same tower" }
     let(:big_on_small_error) { "Invalid move: can't place bigger disk on smaller disk" }
     let(:no_disk_error) { "Invalid move: tower has no disks to move" }
+    let(:out_of_bounds_error) { "Invalid move: please enter tower numbers between 0 and 2" }
 
     it 'prevents user from moving disk from a tower to the same tower' do
       expect { game.move(0, 0) }.to raise_error(same_tower_error)
@@ -26,6 +27,10 @@ describe TowersOfHanoi do
     it 'prevents user from moving bigger disk on to a smaller disk' do
       game.move(0, 1)
       expect { game.move(0, 1) }.to raise_error(big_on_small_error)
+    end
+
+    it 'prevents user from moving to non-existant tower' do
+      expect { game.move(-1, 7) }.to raise_error(out_of_bounds_error)
     end
 
     it 'moves a disk from one tower to another' do
