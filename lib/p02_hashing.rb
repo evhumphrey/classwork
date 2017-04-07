@@ -3,12 +3,19 @@ class Fixnum
 end
 
 class Array
+  # each el (Fixnum); mutliply index.hash by element; add all results
   def hash
+    hashing_sum = map.with_index do |el, i|
+      i.hash * el
+    end
+
+    hashing_sum.reduce(:+).hash
   end
 end
 
 class String
   def hash
+    
   end
 end
 
