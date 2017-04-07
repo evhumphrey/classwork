@@ -1,4 +1,3 @@
-require 'byebug'
 
 class Link
   attr_accessor :key, :val, :next, :prev
@@ -25,7 +24,7 @@ end
 class LinkedList
 
   include Enumerable
-  
+
   attr_reader :size
 
   def initialize
@@ -79,6 +78,7 @@ class LinkedList
     new_link.prev = prev_link
 
     @size += 1
+    new_link
   end
 
   def update(key, val)
