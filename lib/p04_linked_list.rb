@@ -25,6 +25,8 @@ end
 class LinkedList
 
   include Enumerable
+  
+  attr_reader :size
 
   def initialize
     #sentinel nodes
@@ -35,7 +37,7 @@ class LinkedList
     @tail.prev = @head
 
     # size of LinkedList (not counting sentinels)
-    @count = 0
+    @size = 0
   end
 
   def [](i)
@@ -52,7 +54,7 @@ class LinkedList
   end
 
   def empty?
-    @count == 0
+    @size == 0
   end
 
   def get(key)
@@ -76,7 +78,7 @@ class LinkedList
     new_link.next = @tail
     new_link.prev = prev_link
 
-    @count += 1
+    @size += 1
   end
 
   def update(key, val)
