@@ -2,17 +2,26 @@ require_relative 'questions_database'
 
 class User
   def self.all
-    all = []
     query = QuestionsDbConnection.instance.execute(<<-SQL)
       SELECT
         *
       FROM
         users
     SQL
-    query.each { |data| all << User.new(data) }
-    all
+    query.map { |data| User.new(data) }
   end
 
+  def self.find_by_name(f_name, l_name)
+    query = QuestionsDbConnection.instance.execute(<<-SQL, f_name, l_name)
+      SELECT
+        *
+      FROM
+        users
+      WHERE
+        f_name = ? AND l_name = ?
+    SQL
+    query.map { |data| User.new(data) }
+  end
 
   attr_accessor :first_name, :last_name
   def initialize(options)
