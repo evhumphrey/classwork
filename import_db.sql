@@ -12,9 +12,9 @@ CREATE TABLE questions (
   id INTEGER PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   body VARCHAR(160) NOT NULL,
-  user_id INTEGER NOT NULL,
+  author_id INTEGER NOT NULL,
 
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (author_id) REFERENCES users(id)
 );
 
 DROP TABLE IF EXISTS question_follows;
@@ -61,7 +61,7 @@ VALUES
   ("Jaden", "Smith");
 
 INSERT INTO
-  questions(title, body, user_id)
+  questions(title, body, author_id)
 VALUES
 (
   "How many cats do I have",
