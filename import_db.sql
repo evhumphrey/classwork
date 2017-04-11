@@ -1,0 +1,18 @@
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY,
+  f_name VARCHAR(255) NOT NULL,
+  l_name VARCHAR(255) NOT NULL
+);
+
+DROP TABLE IF EXISTS questions;
+
+CREATE TABLE questions (
+  id INTEGER PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  body VARCHAR(160) NOT NULL,
+  user_id INTEGER NOT NULL,
+
+  FORIEGN KEY (user_id) REFERENCES users(id)
+);
