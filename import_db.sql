@@ -90,11 +90,13 @@ VALUES
 );
 
 INSERT INTO
-  question_follows(question_id, user_id)
+  question_follows(user_id, question_id)
 VALUES
   (1, 1), -- Elliot follows his own question
   (2, 1), -- ""
   (3, 3), -- Jaden follows his own questin
+  (1, 3), -- Awkii Fire follows his own questin
+  (2, 3), -- Elliot follows his own questin
   (3, 4),
   (3, 5),
   (3, 2);-- Ahmed (2) replied/followed to Question (3)
