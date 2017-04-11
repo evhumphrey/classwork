@@ -22,8 +22,7 @@ class Question
   end
 
   def author
-    a = @author_id
-    query = QuestionsDbConnection.instance.execute(<<-SQL, a)
+    query = QuestionsDbConnection.instance.execute(<<-SQL, @author_id)
       SELECT
         *
       FROM
@@ -32,5 +31,9 @@ class Question
        id = ?
     SQL
     User.new(query[0])
+  end
+
+  def replies
+    Reply::find_by_question_id(@id)
   end
 end
