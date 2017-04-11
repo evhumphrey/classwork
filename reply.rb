@@ -15,6 +15,19 @@ class Reply
     query.map { |data| Reply.new(data) }
   end
 
+  def self.find_by_question_id(question_id)
+    query = QuestionsDbConnection.instance.execute(<<-SQL, question_id)
+      SELECT
+        *
+      FROM
+        replies
+      WHERE
+        question_id = ?
+    SQL
+
+    query.map { |data| Reply.new(data) }
+  end
+
   def initialize(options)
     @id = options['id']
     # @parent = Reply.find_by_user_id(options['parent_id'])
