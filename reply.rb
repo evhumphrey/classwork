@@ -37,4 +37,38 @@ class Reply
     @body = options['body']
   end
 
+  def author
+    self.class.find_by_user_id(@user_id).first
+  end
+
+  def question
+    self.class.find_by_question_id(@question_id).first
+  end
+
+  def parent_reply
+    return nil if @parent_id.nil?
+    
+    query = QuestionsDbConnection.instance.execute(<<-SQL, @parent_id)
+      SELECT
+        *
+      FROM
+        replies
+      WHERE
+        id = ?
+    SQL
+    Reply.new(query.first)
+  end
+
+  def child_replies
+    query = QuestionsDbConnection.instance.execute(<<-SQL, @id)
+      SELECT
+        *
+      FROM
+        replies
+      WHERE
+        parent_id = ?
+    SQL
+    query.map { |data| Reply.new(data) }
+  end
+
 end
