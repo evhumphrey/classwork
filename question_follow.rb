@@ -8,10 +8,24 @@ class QuestionFollow
       FROM
         question_follows
       JOIN
-        questions ON question_id = questions.id
+        users ON user_id = users.id
       WHERE
         question_id = ?
     SQL
     query.map { |user| User.new(user) }
+  end
+
+  def self.followed_questions_for_user_id(user_id)
+    query = QuestionsDbConnection.instance.execute(<<-SQL, user_id)
+      SELECT
+        *
+      FROM
+        question_follows
+      JOIN
+        questions ON question_id = questions.id
+      WHERE
+        user_id = ?
+    SQL
+    query.map { |question| Question.new(question) }
   end
 end
