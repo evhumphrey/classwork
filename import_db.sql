@@ -14,7 +14,7 @@ CREATE TABLE questions (
   body VARCHAR(160) NOT NULL,
   user_id INTEGER NOT NULL,
 
-  FORIEGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 DROP TABLE IF EXISTS question_follows;
@@ -24,8 +24,8 @@ CREATE TABLE question_follows (
   question_id INTEGER NOT NULL,
   user_id INTEGER NOT NULL,
 
-  FORIEGN KEY (question_id) REFERENCES questions(id),
-  FORIEGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (question_id) REFERENCES questions(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 DROP TABLE IF EXISTS replies;
@@ -37,9 +37,9 @@ CREATE TABLE replies (
   user_id INTEGER NOT NULL,
   body VARCHAR(160) NOT NULL,
 
-  FORIEGN KEY (parent_id) REFERENCES replies(id),
-  FORIEGN KEY (question_id) REFERENCES questions(id),
-  FORIEGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (parent_id) REFERENCES replies(id),
+  FOREIGN KEY (question_id) REFERENCES questions(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 DROP TABLE IF EXISTS question_likes;
@@ -50,7 +50,7 @@ CREATE TABLE question_likes (
   question_id INTEGER NOT NULL,
 
   FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (question_id) REFERENCES questions(id),
+  FOREIGN KEY (question_id) REFERENCES questions(id)
 );
 
 INSERT INTO
@@ -100,7 +100,7 @@ VALUES
   (3, 2);-- Ahmed (2) replied/followed to Question (3)
 
 INSERT INTO
-  replies(parent_id, question_id, user_id)
+  replies(parent_id, question_id, user_id, body)
 VALUES
   (NULL, 3, 2, "5"),
   (1, 3, 1, "hi 5");
