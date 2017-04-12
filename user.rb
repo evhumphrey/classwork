@@ -20,7 +20,7 @@ class User
       WHERE
         f_name = ? AND l_name = ?
     SQL
-    User.new(query.first)
+    query.map { |data| User.new(data) }
   end
 
   attr_accessor :first_name, :last_name
@@ -36,9 +36,5 @@ class User
 
   def authored_replies
     Reply::find_by_user_id(@id)
-  end
-
-  def followed_questions
-    QuestionFollow.followed_questions_for_user_id(@id)
   end
 end

@@ -13,6 +13,10 @@ class Question
     query.map { |data| Question.new(data) }
   end
 
+  def self.most_followed(n)
+    QuestionFollow.most_followed_questions(n)
+  end
+
   attr_accessor :title, :body, :author_id
   def initialize(options)
     @id = options['id']
@@ -35,9 +39,5 @@ class Question
 
   def replies
     Reply::find_by_question_id(@id)
-  end
-
-  def followers
-    QuestionFollow.followers_for_question_id(@id)
   end
 end

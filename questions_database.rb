@@ -3,7 +3,6 @@ require 'sqlite3'
 require_relative 'user'
 require_relative 'question'
 require_relative 'reply'
-require_relative 'question_follows'
 
 class QuestionsDbConnection < SQLite3::Database
   include Singleton

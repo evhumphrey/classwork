@@ -47,7 +47,7 @@ class Reply
 
   def parent_reply
     return nil if @parent_id.nil?
-    
+
     query = QuestionsDbConnection.instance.execute(<<-SQL, @parent_id)
       SELECT
         *
