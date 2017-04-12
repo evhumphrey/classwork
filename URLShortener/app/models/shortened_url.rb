@@ -31,6 +31,15 @@ class ShortenedUrl < ApplicationRecord
     foreign_key: :link_id,
     class_name: :Visit
 
+  has_many :taggings,
+    primary_key: :id,
+    foreign_key: :link_id,
+    class_name: :Tagging
+
+  has_many :tag_topics,
+    through: :taggings,
+    source: :tag
+
   def num_clicks
     # Visit.all.select { |visit| visit.link_id == self.id }.count
     self.visits_ids.count
