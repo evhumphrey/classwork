@@ -1,3 +1,5 @@
+
+
 puts "Input your email"
 print "> "
 email = gets.chomp
@@ -30,6 +32,16 @@ else
     system(exit)
   end
   puts
-  puts "Launching #{long.long_url} ..."
+  Visit.record_visit!(user, long)
+  puts "Link has #{long.num_clicks} visits"
+  print "Launching #{long.long_url} "
+  3.times do
+    print ". "
+    sleep(0.4)
+  end
+  puts
+  Launchy.open(long.long_url)
+
+
 end
 puts "Goodbye! Thank you for using tiny.io!"
