@@ -26,7 +26,6 @@ class ShortenedUrl < ApplicationRecord
     foreign_key: :submitter_id,
     class_name: :User
 
-
   has_many :visits_ids,
     primary_key: :id,
     foreign_key: :link_id,
@@ -39,5 +38,12 @@ class ShortenedUrl < ApplicationRecord
 
   def num_uniques
     self.visits_ids.select(:visitor_id).distinct.count
+  end
+
+  def num_recent_uniques
+    # Visit.where({ created_at: 100.minutes.ago..Time.now })
+    self.visits_ids.where({
+        created_at: 10.minutes.ago..Time.now
+      }).select(:visitor_id).distinct.count
   end
 end

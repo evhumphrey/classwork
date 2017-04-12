@@ -9,12 +9,12 @@ class Visit < ApplicationRecord
     )
   end
 
-  belongs_to :visitors,
+  belongs_to :visitor,
     primary_key: :id,
     foreign_key: :visitor_id,
     class_name: :User
 
-  belongs_to :links,
+  belongs_to :link,
     primary_key: :id,
     foreign_key: :link_id,
     class_name: :ShortenedUrl

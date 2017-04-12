@@ -13,5 +13,5 @@ class User < ApplicationRecord
 
   has_many :visited_urls,
     through: :visited_urls_ids,
-    source: :links
+    source: :link
 end
