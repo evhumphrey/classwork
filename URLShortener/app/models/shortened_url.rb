@@ -25,4 +25,19 @@ class ShortenedUrl < ApplicationRecord
     primary_key: :id,
     foreign_key: :submitter_id,
     class_name: :User
+
+
+  has_many :visits_ids,
+    primary_key: :id,
+    foreign_key: :link_id,
+    class_name: :Visit
+
+  def num_clicks
+    # Visit.all.select { |visit| visit.link_id == self.id }.count
+    self.visits_ids.count
+  end
+
+  def num_uniques
+    self.visits_ids.select(:visitor_id).distinct.count
+  end
 end
