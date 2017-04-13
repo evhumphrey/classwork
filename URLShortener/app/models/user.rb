@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
+  validates :premium, presence: true
 
   has_many :submitted_urls,
     primary_key: :id,
@@ -14,4 +15,5 @@ class User < ApplicationRecord
   has_many :visited_urls,
     through: :visited_urls_ids,
     source: :link
+
 end

@@ -1,6 +1,6 @@
 class ShortenedUrl < ApplicationRecord
   include SecureRandom
-  validate :no_spamming
+  validate :no_spamming, :nonpremium_max
 
   validates :long_url, presence: true, uniqueness: true
   validates :short_url, presence: true, uniqueness: true
@@ -75,5 +75,15 @@ class ShortenedUrl < ApplicationRecord
         "Can't create more than 5 shortURLs within a minute."
     end
     true
+  end
+
+  def nonpremium_max
+    all_urls = self.submitter.submitted_urls
+    unless self.submitter.premium
+      if all_urls.count == 5
+        self.errors[:base] << "Reached max free limit. " \
+        "Please upgrade to premium tinyness"
+      end
+    end
   end
 end
