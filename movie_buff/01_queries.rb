@@ -63,6 +63,7 @@ def movie_names_before_1940
   #
   # Movie.where("score < 2.0").pluck(:title)
   # => ["Police Academy: Mission to Moscow"]
+  Movie.where("yr < 1940").pluck(:title)
   #
   # Pluck works similarly to select, except that it converts a query result
   # directly into a Ruby Array instead of an ActiveRecord object. This can
