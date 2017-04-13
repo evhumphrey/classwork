@@ -14,4 +14,18 @@ class Question < ApplicationRecord
   has_many :responses,
   through: :answer_choices,
   source: :responses
+
+  def title
+    self.text
+  end
+
+  def results
+    result = {}
+    p choices = answer_choices.includes(:responses)
+    choices.each do |choice|
+      result[choice.text] = choice.responses.length
+    end
+
+    result
+  end
 end
