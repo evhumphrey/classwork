@@ -1,5 +1,6 @@
 class ShortenedUrl < ApplicationRecord
   include SecureRandom
+  validate :no_spamming
 
   validates :long_url, presence: true, uniqueness: true
   validates :short_url, presence: true, uniqueness: true
@@ -54,5 +55,25 @@ class ShortenedUrl < ApplicationRecord
     self.visits_ids.where({
         created_at: 10.minutes.ago..Time.now
       }).select(:visitor_id).distinct.count
+  end
+
+  def no_spamming
+    all_urls = self.submitter.submitted_urls
+    sorted_urls = all_urls.sort do |url1, url2|
+      url2.created_at <=> url1.created_at
+    end
+
+    recent_five = sorted_urls.take(5)
+    current_time = Time.now
+
+    spammer = recent_five.all? do |url|
+      url.created_at.between?(1.minutes.ago, current_time)
+    end
+
+    if spammer
+      self.errors[:base] << "You are a spammer. " \
+        "Can't create more than 5 shortURLs within a minute."
+    end
+    true
   end
 end
