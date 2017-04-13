@@ -14,4 +14,9 @@ class Response < ApplicationRecord
   has_one :question,
     through: :answer_choice,
     source: :question
+
+  def sibling_responses
+    all_responses = question.responses
+    all_responses.where.not('responses.id = ?', self.id)
+  end
 end
