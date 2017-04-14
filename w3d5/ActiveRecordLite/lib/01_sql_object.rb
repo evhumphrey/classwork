@@ -5,7 +5,17 @@ require 'active_support/inflector'
 
 class SQLObject
   def self.columns
-    # ...
+    # store column names in instance variable
+    # if queried, return our instance var (which has column names)
+    # if not queried yet, do the query to get column names
+    @column_names ||= (
+      DBConnection.execute2(<<-SQL)
+        SELECT
+          *
+        FROM
+          #{self.table_name}
+      SQL
+      ).first.map(&:to_sym)
   end
 
   def self.finalize!
