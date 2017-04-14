@@ -20,6 +20,7 @@ class Question < ApplicationRecord
   end
 
   def results
+
     # SELECT answer_choices.*, COUNT(responses) FROM answer_choices LEFT JOIN responses ON responses.answer_choice_id = answer_choices.id WHERE answer_choices.question_id = #{self.id} GROUP BY answer_choices.id
     # assume we return array (not hash)
     #  -- this returs array of AnswerChoice objects
