@@ -21,7 +21,7 @@ class Question < ApplicationRecord
 
   def results
     result = {}
-    p choices = answer_choices.includes(:responses)
+    choices = answer_choices
     choices.each do |choice|
       result[choice.text] = choice.responses.length
     end
