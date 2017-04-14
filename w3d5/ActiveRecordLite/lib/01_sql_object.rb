@@ -12,11 +12,13 @@ class SQLObject
   end
 
   def self.table_name=(table_name)
-    # ...
+    @table_name = table_name
   end
 
   def self.table_name
-    # ...
+    # if @table_name is already defined, return it
+    # otherwise, tableize the self (class) name
+    @table_name ||= self.to_s.tableize
   end
 
   def self.all
