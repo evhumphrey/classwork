@@ -20,12 +20,16 @@ class Question < ApplicationRecord
   end
 
   def results
-    result = {}
-    p choices = answer_choices.includes(:responses)
-    choices.each do |choice|
-      result[choice.text] = choice.responses.length
+    # SELECT answer_choices.*, COUNT(responses) FROM answer_choices LEFT JOIN responses ON responses.answer_choice_id = answer_choices.id WHERE answer_choices.question_id = #{self.id} GROUP BY answer_choices.id
+    # assume we return array (not hash)
+    #  -- this returs array of AnswerChoice objects
+    #  -- how do we view the count from the AnswerChoice object (because AnswerChoice.count actually works, how do we see that 'count' is a column)
+    arr = self.answer_choices.select('answer_choices.text, COUNT(responses) AS count').joins('LEFT JOIN responses ON responses.answer_choice_id = answer_choices.id').where('answer_choices.question_id = ?', self.id).group('answer_choices.id')
+    hash = {}
+    arr.each do |row|
+      hash[row.text] = row.count
     end
 
-    result
+    hash
   end
 end
