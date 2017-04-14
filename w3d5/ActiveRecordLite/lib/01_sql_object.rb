@@ -111,7 +111,21 @@ class SQLObject
   end
 
   def update
-    # ...
+    col_names = self.class.columns
+    id = self.send(:id)
+
+    col_names = col_names.map do |attr_name|
+      "#{attr_name} = ?"
+    end.join(', ')
+
+    DBConnection.execute(<<-SQL, *attribute_values, id)
+      UPDATE
+        #{self.class.table_name}
+      SET
+        #{col_names}
+      WHERE
+        id = ?
+    SQL
   end
 
   def save
