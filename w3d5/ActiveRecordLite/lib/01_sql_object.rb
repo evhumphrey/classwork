@@ -129,6 +129,8 @@ class SQLObject
   end
 
   def save
-    # ...
+    id = self.send(:id)
+
+    id.nil? ? self.insert : self.update
   end
 end
