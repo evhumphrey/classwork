@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    render text: 'I like propane and propane accessories'
+    render json: User.all
   end
 
   def create
