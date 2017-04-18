@@ -7,6 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 User.destroy_all
 
-hank = User.create(name: 'Hank', email: 'propane@arlen.com')
-peggy = User.create(name: 'Peggy', email: 'scrabble@arlen.com')
-bobby = User.create(name: 'Bobby', email: 'magic@arlen.com')
+hank = User.create(username: 'Hank')
+peggy = User.create(username: 'Peggy')
+bobby = User.create(username: 'Bobby')
